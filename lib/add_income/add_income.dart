@@ -35,6 +35,7 @@ class _AddIncomeState extends State<AddIncome> {
       descriptionController.text = widget.data!.description.toString();
       categoryController.text = widget.data!.category.toString();
       selectedDate = widget.data!.date;
+      _icon = widget.data!.icon;
     }
   }
 
@@ -94,10 +95,19 @@ class _AddIncomeState extends State<AddIncome> {
                       width: 35,
                       height: 35,
                       decoration: const BoxDecoration(
+                        gradient: LinearGradient(colors: [
+                          Colors.red,
+                          Colors.pink,
+                          Colors.purple,
+                          Colors.deepPurple,
+                        ]),
                         shape: BoxShape.circle,
                         color: Colors.pink,
                       ),
-                      child: const Icon(Icons.delete),
+                      child: const Icon(
+                        Icons.delete,
+                        color: Colors.white,
+                      ),
                     ),
                   ));
             }),
@@ -324,19 +334,18 @@ class _AddIncomeState extends State<AddIncome> {
                             date: selectedDate,
                             category: categoryController.text,
                             isIncome: true,
-                            //icon: _icon
                           ));
-                      if (widget.data != null) {
-                        ref.watch(incomeProvider.notifier).updateIncome(Income(
-                              icon: _icon,
-                              incomeId: widget.data!.incomeId,
-                              income: double.parse(incomeController.text),
-                              description: descriptionController.text,
-                              date: selectedDate,
-                              category: categoryController.text,
-                              isIncome: true,
-                            ));
-                      }
+                    }
+                    if (widget.data != null) {
+                      ref.watch(incomeProvider.notifier).updateIncome(Income(
+                            icon: _icon,
+                            incomeId: widget.data!.incomeId,
+                            income: double.parse(incomeController.text),
+                            description: descriptionController.text,
+                            date: selectedDate,
+                            category: categoryController.text,
+                            isIncome: widget.data!.isIncome,
+                          ));
                     }
 
                     //print(_icon);
